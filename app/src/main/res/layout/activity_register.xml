@@ -9,75 +9,86 @@
     tools:context=".RegisterActivity">
 
     <!-- Email Field -->
+
+    <!-- Password Field -->
+
+    <!-- Phone Field -->
     <EditText
         android:id="@+id/editTextRegisterEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="16dp"
         android:textColor="#000000"
-        android:background="@drawable/edit_text_bg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Password Field -->
     <EditText
         android:id="@+id/editTextRegisterPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
         android:hint="Password"
         android:inputType="textPassword"
         android:padding="16dp"
         android:textColor="#000000"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegisterEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/editTextRegisterEmail" />
 
-    <!-- Phone Field -->
+    <!-- First Name Field -->
     <EditText
         android:id="@+id/editTextPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
         android:hint="Phone"
         android:inputType="phone"
         android:padding="16dp"
         android:textColor="#000000"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintTop_toBottomOf="@id/editTextRegisterPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/editTextRegisterPassword" />
 
-    <!-- First Name Field -->
+    <!-- Last Name Field -->
     <EditText
         android:id="@+id/editTextFirstName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
         android:hint="First Name"
         android:padding="16dp"
         android:textColor="#000000"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/editTextPhone" />
 
-    <!-- Last Name Field -->
+    <!-- Register Button -->
     <EditText
         android:id="@+id/editTextLastName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_bg"
         android:hint="Last Name"
         android:padding="16dp"
         android:textColor="#000000"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintTop_toBottomOf="@id/editTextFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/editTextFirstName" />
 
-    <!-- Register Button -->
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="0dp"
