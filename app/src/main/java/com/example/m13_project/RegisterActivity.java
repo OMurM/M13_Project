@@ -14,6 +14,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword, editTextPhone, editTextFirstName, editTextLastName;
     private static final String TAG = "RegisterActivity";
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
         Button buttonRegister = findViewById(R.id.buttonRegister);
+        userService = new UserService(this);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +81,6 @@ public class RegisterActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserService userService = new UserService();
                 String response = userService.registerUser(email, password, phone, firstName, lastName);
                 runOnUiThread(new Runnable() {
                     @Override

@@ -1,3 +1,5 @@
+import org.gradle.model.internal.typeregistration.InstanceFactory.ImplementationInfo
+
 plugins {
     alias(libs.plugins.android.application)
 }

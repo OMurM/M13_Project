@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editTextEmail, editTextPassword;
+    private CheckBox checkBoxRememberMe;
     private static final String TAG = "MainActivity";
+    private UserService userService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        CheckBox checkBoxRememberMe = findViewById(R.id.checkBoxRememberMe);
+        checkBoxRememberMe = findViewById(R.id.checkBoxRememberMe);
         Button buttonLogin = findViewById(R.id.buttonLogin);
         Button buttonGoToRegister = findViewById(R.id.buttonGoToRegister);
+        userService = new UserService(this);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void loginUser() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        boolean rememberMe = checkBoxRememberMe.isChecked();
 
         if (TextUtils.isEmpty(email)) {
             editTextEmail.setError("Email is required");
@@ -65,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserService userService = new UserService();
-                String response = userService.loginUser(email, password);
+                String response = userService.loginUser(email, password, rememberMe);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

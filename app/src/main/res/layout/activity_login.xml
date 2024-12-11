@@ -8,7 +8,7 @@
     android:padding="32dp"
     tools:context=".MainActivity">
 
-    <!-- Email Field -->f
+    <!-- Email Field -->
     <EditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
