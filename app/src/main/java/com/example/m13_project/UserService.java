@@ -16,7 +16,7 @@ public class UserService {
 
     private static final String BASE_URL = "http://10.0.2.2:5000";
     private static final String TAG = "UserService";
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public UserService(Context context) {
         sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);

@@ -1,5 +1,7 @@
 [versions]
 agp = "8.6.0"
+coil = "2.4.0"
+compiler = "4.15.0"
 fontawesomeTypeface = "5.9.0.2"
 iconicsCore = "5.3.0"
 junit = "4.13.2"
@@ -10,8 +12,16 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
 materialVersion = "1.4.0"
+pagingRuntime = "3.3.5"
+picasso = "2.71828"
+picassoVersion = "2.71828"
+retrofitVersion = "2.9.0"
+volley = "1.2.1"
 
 [libraries]
+coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofitVersion" }
 fontawesome-typeface = { module = "com.mikepenz:fontawesome-typeface", version.ref = "fontawesomeTypeface" }
 iconics-core = { module = "com.mikepenz:iconics-core", version.ref = "iconicsCore" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -22,6 +32,11 @@ material = { group = "com.google.android.material", name = "material", version.r
 activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v140 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
+picasso = { module = "com.square.picasso:picasso", version.ref = "picasso" }
+retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
+squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref = "picassoVersion" }
+volley = { module = "com.android.volley:volley", version.ref = "volley" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

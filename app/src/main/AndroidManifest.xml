@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserService" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".SettingsActivity" />
