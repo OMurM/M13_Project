@@ -68,8 +68,9 @@ public class Product {
         } else {
             Log.d("Product", "Image object is null");
         }
-        return "https://via.placeholder.com/250";
+        return image != null ? image.getUrl() : null;
     }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -116,7 +117,7 @@ public class Product {
         }
 
         public String getUrl() {
-            return url != null ? url : "https://via.placeholder.com/250";
+            return url;
         }
     }
 }

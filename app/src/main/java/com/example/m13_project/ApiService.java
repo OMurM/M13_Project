@@ -8,4 +8,7 @@ import java.util.List;
 public interface ApiService {
     @GET("/images/on_offer")
     Call<List<Product>> getProducts();
+
+    @GET("/images/all_products")
+    Call<List<Product>> getAllProducts();
 }
