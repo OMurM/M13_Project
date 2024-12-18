@@ -1,6 +1,7 @@
 package com.example.m13_project;
 
 import com.google.gson.annotations.SerializedName;
+import android.util.Log;
 import java.util.Objects;
 
 public class Product {
@@ -56,10 +57,18 @@ public class Product {
 
     // Return the image URL (null safe)
     public String getImageUrl() {
-        if (image != null && image.getUrl() != null) {
-            return image.getUrl();
+        if (image != null) {
+            Log.d("Product", "Image object is not null: " + image.getUrl());
+            if (image.getUrl() != null) {
+                Log.d("Product", "Image URL: " + image.getUrl());
+                return image.getUrl();
+            } else {
+                Log.d("Product", "Image URL is null");
+            }
+        } else {
+            Log.d("Product", "Image object is null");
         }
-        return "https://via.placeholder.com/250"; // Default placeholder URL
+        return "https://via.placeholder.com/250";
     }
 
     @Override
@@ -107,7 +116,7 @@ public class Product {
         }
 
         public String getUrl() {
-            return url;
+            return url != null ? url : "https://via.placeholder.com/250";
         }
     }
 }

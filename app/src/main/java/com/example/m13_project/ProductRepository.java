@@ -22,26 +22,28 @@ public class ProductRepository {
     private static final String TAG = "ProductRepository";
 
     public ProductRepository() {
-        Log.d(TAG, "ProductRepository initialized");
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5000/")
+                .baseUrl("http://10.0.2.2:5000/")  // Replace with actual base URL
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         apiService = retrofit.create(ApiService.class);
-        Log.d(TAG, "Retrofit instance created and ApiService initialized");
     }
 
     public LiveData<List<Product>> getOnOfferProducts() {
-        Log.d(TAG, "Fetching products from the API");
 
         apiService.getProducts().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(@NonNull Call<List<Product>> call, @NonNull Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d(TAG, "API response successful: " + response.body().size() + " products received");
-                    onOfferProducts.setValue(response.body());
+                    List<Product> products = response.body();
+
+                    for (Product product : products) {
+                        Log.d(TAG, "Product ID: " + product.getProductId() + ", Image URL: " + product.getImageUrl());
+                    }
+
+                    onOfferProducts.setValue(products);
                 } else {
                     Log.e(TAG, "API response failed: " + response.code() + " " + response.message());
                 }

@@ -40,6 +40,9 @@ public class HomePageActivity extends AppCompatActivity {
         productViewModel.getOnOfferProducts().observe(this, products -> {
             if (products != null) {
                 Log.d("HomePageActivity", "Received products: " + products.size());
+                for (Product product : products) {
+                    Log.d("HomePageActivity", "Product ID: " + product.getProductId() + ", Image URL: " + product.getImageUrl());
+                }
                 productAdapter.submitList(products);
             } else {
                 Log.d("HomePageActivity", "No products received");
@@ -90,6 +93,9 @@ public class HomePageActivity extends AppCompatActivity {
         TextView textViewProductDescription = dialogView.findViewById(R.id.textViewProductDescription);
 
         textViewProductDescription.setText(product.getDescription());
+
+        Log.d("HomePageActivity", "Loading image for product: " + product.getDescription() + " from URL: " + product.getImageUrl());
+
         Picasso.get().load(product.getImageUrl()).into(imageViewProduct);
 
         new AlertDialog.Builder(this)

@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductViewHolder> {
@@ -57,17 +59,26 @@ public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductV
             return;
         }
 
-        // Bind product description
         holder.textViewDescription.setText(product.getDescription());
 
-        // Get the image URL (with logging for debugging)
         String imageUrl = product.getImageUrl();
         Log.d("ProductAdapter", "Image URL at position " + position + ": " + imageUrl);
 
-        // Load image using Picasso
-        Picasso.get().load(imageUrl).into(holder.imageViewProduct);
+        Picasso.get()
+                .load(imageUrl)
+                .networkPolicy(NetworkPolicy.NO_CACHE)  // Ensures no cached images
+                .into(holder.imageViewProduct, new com.squareup.picasso.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d("ProductAdapter", "Image loaded successfully: " + imageUrl);
+                    }
 
-        // Set onClickListener
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e("ProductAdapter", "Error loading image: " + e.getMessage());
+                    }
+                });
+
         holder.itemView.setOnClickListener(v -> {
             if (onProductClickListener != null) {
                 onProductClickListener.onProductClick(product);
@@ -75,7 +86,6 @@ public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductV
         });
     }
 
-    // Interface to handle item clicks
     public interface OnProductClickListener {
         void onProductClick(Product product);
     }
