@@ -15,4 +15,8 @@ public class ProductViewModel extends ViewModel {
     public LiveData<List<Product>> getOnOfferProducts() {
         return productRepository.getOnOfferProducts();
     }
+
+    public LiveData<List<Product>> getAllProducts() {
+        return productRepository.getAllProducts();
+    }
 }

@@ -1,6 +1,5 @@
 package com.example.m13_project;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -20,8 +18,8 @@ public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductV
 
     private final Context context;
     private final OnProductClickListener onProductClickListener;
+    private static final String PLACEHOLDER_URL = "https://via.placeholder.com/250";
 
-    // Constructor with OnProductClickListener
     public ProductAdapter(Context context, OnProductClickListener listener) {
         super(DIFF_CALLBACK);
         if (context == null) {
@@ -64,18 +62,31 @@ public class ProductAdapter extends ListAdapter<Product, ProductAdapter.ProductV
         String imageUrl = product.getImageUrl();
         Log.d("ProductAdapter", "Image URL at position " + position + ": " + imageUrl);
 
+        // First load the placeholder image
         Picasso.get()
-                .load(imageUrl)
-                .networkPolicy(NetworkPolicy.NO_CACHE)  // Ensures no cached images
+                .load(PLACEHOLDER_URL)
                 .into(holder.imageViewProduct, new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {
-                        Log.d("ProductAdapter", "Image loaded successfully: " + imageUrl);
+                        // Then load the actual product image
+                        Picasso.get()
+                                .load(imageUrl != null ? imageUrl : "https://via.placeholder.com/250")
+                                .into(holder.imageViewProduct, new com.squareup.picasso.Callback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        Log.d("ProductAdapter", "Image loaded successfully: " + imageUrl);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        Log.e("ProductAdapter", "Error loading image: " + e.getMessage());
+                                    }
+                                });
                     }
 
                     @Override
                     public void onError(Exception e) {
-                        Log.e("ProductAdapter", "Error loading image: " + e.getMessage());
+                        Log.e("ProductAdapter", "Error loading placeholder: " + e.getMessage());
                     }
                 });
 
