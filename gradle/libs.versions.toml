@@ -17,6 +17,7 @@ picasso = "2.71828"
 picassoVersion = "2.71828"
 retrofitVersion = "2.9.0"
 volley = "1.2.1"
+lifecycleViewmodelAndroid = "2.8.7"
 
 [libraries]
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
@@ -37,6 +38,7 @@ picasso = { module = "com.square.picasso:picasso", version.ref = "picasso" }
 retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion" }
 squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref = "picassoVersion" }
 volley = { module = "com.android.volley:volley", version.ref = "volley" }
+lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

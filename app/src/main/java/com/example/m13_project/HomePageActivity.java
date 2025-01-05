@@ -1,100 +1,93 @@
 package com.example.m13_project;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-
-import com.squareup.picasso.Picasso;
-
-import android.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.TextView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
 
+    private static final String TAG = "HomePageActivity";
     private ProductAdapter productAdapter;
+    private final List<Product> allProducts = new ArrayList<>();
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Log.d("HomePageActivity", "onCreate called");
+        setTitle("Home Page");
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        try {
+            // UI Elements
+            TextView textViewWelcome = findViewById(R.id.textViewWelcome);
+            Button buttonLogout = findViewById(R.id.buttonLogout);
+            Button navigationHome = findViewById(R.id.navigation_home);
+            Button navigationSearch = findViewById(R.id.navigation_cart);
+            Button navigationFavorite = findViewById(R.id.navigation_favorite);
+            Button navigationSettings = findViewById(R.id.navigation_settings);
 
-        productAdapter = new ProductAdapter(this, this::showProductDetailsDialog);
-        recyclerView.setAdapter(productAdapter);
+            // Initialize RecyclerView
+            RecyclerView recyclerView = findViewById(R.id.recyclerView);
+            productAdapter = new ProductAdapter(this, allProducts, product -> {
+                // Add logic for product click if needed
+            });
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(productAdapter);
 
-        ProductViewModel productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
-        productViewModel.getOnOfferProducts().observe(this, products -> {
-            if (products != null) {
-                Log.d("HomePageActivity", "Received products: " + products.size());
-                productAdapter.submitList(products);
-            } else {
-                Log.d("HomePageActivity", "No products received");
-            }
-        });
+            // Fetch all products using ViewModel
+            ProductViewModel productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
+            productViewModel.getAllProducts().observe(this, products -> {
+                if (products != null) {
+                    allProducts.clear();
+                    allProducts.addAll(products);
+                    productAdapter.notifyDataSetChanged();
+                } else {
+                    Log.w(TAG, "No products available.");
+                }
+            });
 
-        Button buttonLogout = findViewById(R.id.buttonLogout);
-        buttonLogout.setOnClickListener(v -> {
-            Log.d("HomePageActivity", "Logout button clicked");
-            Intent intent = new Intent(HomePageActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        });
+            // Bottom navigation listeners
+            navigationHome.setOnClickListener(v -> {
+                // Home navigation - Already on this screen
+            });
 
-        Button navigationHome = findViewById(R.id.navigation_home);
-        navigationHome.setOnClickListener(v -> {
-            Log.d("HomePageActivity", "Navigation to Home clicked");
-        });
+            navigationSearch.setOnClickListener(v -> {
+                Intent intent = new Intent(HomePageActivity.this, SearchActivity.class);
+                startActivity(intent);
+                finish();
+            });
 
-        Button navigationCart = findViewById(R.id.navigation_cart);
-        navigationCart.setOnClickListener(v -> {
-            Log.d("HomePageActivity", "Navigation to Cart clicked");
-            Intent intent = new Intent(HomePageActivity.this, SearchActivity.class);
-            startActivity(intent);
-        });
+            navigationFavorite.setOnClickListener(v -> {
+                Intent intent = new Intent(HomePageActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+                finish();
+            });
 
-        Button navigationFavorite = findViewById(R.id.navigation_favorite);
-        navigationFavorite.setOnClickListener(v -> {
-            Log.d("HomePageActivity", "Navigation to Favorite clicked");
-            Intent intent = new Intent(HomePageActivity.this, FavoriteActivity.class);
-            startActivity(intent);
-        });
+            navigationSettings.setOnClickListener(v -> {
+                Intent intent = new Intent(HomePageActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                finish();
+            });
 
-        Button navigationSettings = findViewById(R.id.navigation_settings);
-        navigationSettings.setOnClickListener(v -> {
-            Log.d("HomePageActivity", "Navigation to Settings clicked");
-            Intent intent = new Intent(HomePageActivity.this, SettingsActivity.class);
-            startActivity(intent);
-        });
-    }
+            // Logout button listener
+            buttonLogout.setOnClickListener(v -> {
+                Intent intent = new Intent(HomePageActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            });
 
-    private void showProductDetailsDialog(Product product) {
-        Log.d("HomePageActivity", "Product clicked: " + product.getDescription());
-
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_product_details, null);
-
-        ImageView imageViewProduct = dialogView.findViewById(R.id.imageViewProductDetail);
-        TextView textViewProductDescription = dialogView.findViewById(R.id.textViewProductDescription);
-
-        textViewProductDescription.setText(product.getDescription());
-        Picasso.get().load(product.getImageUrl()).into(imageViewProduct);
-
-        new AlertDialog.Builder(this)
-                .setView(dialogView)
-                .setPositiveButton("Close", null)
-                .show();
+        } catch (Exception e) {
+            Log.e(TAG, "Error in onCreate: ", e);
+        }
     }
 }

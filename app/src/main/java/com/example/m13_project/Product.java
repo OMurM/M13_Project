@@ -1,36 +1,93 @@
 package com.example.m13_project;
 
-import java.util.Objects;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Product {
-    private int productId;
+public class Product implements Parcelable {
+    private String productId;
+    private Image image;
     private String description;
-    private String imageUrl;
+    private String name;
+    private double price;
+    private boolean offer;
+    private int stock;
 
-    public int getProductId() {
+    protected Product(Parcel in) {
+        productId = in.readString();
+        image = in.readParcelable(Image.class.getClassLoader());
+        description = in.readString();
+        name = in.readString();
+        price = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(productId != null ? productId : "");
+        dest.writeParcelable(image, flags);
+        dest.writeString(description != null ? description : "");
+        dest.writeString(name != null ? name : "");
+        dest.writeDouble(price);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    // Getters and setters for productId, image, description, name, and price
+    public String getProductId() {
         return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return productId == product.productId &&
-                description.equals(product.description) &&
-                imageUrl.equals(product.imageUrl);
+    public String getName() {
+        return name;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(productId, description, imageUrl);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isOffer() {
+        return false;
     }
 }

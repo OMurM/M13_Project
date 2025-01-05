@@ -2,7 +2,6 @@ package com.example.m13_project;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
 import java.util.List;
 
 public class ProductViewModel extends ViewModel {

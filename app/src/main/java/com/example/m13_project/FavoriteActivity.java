@@ -17,6 +17,7 @@ public class FavoriteActivity extends AppCompatActivity {
         Button navigationCart = findViewById(R.id.navigation_cart);
         Button navigationFavorite = findViewById(R.id.navigation_favorite);
         Button navigationSettings = findViewById(R.id.navigation_settings);
+        Button buttonLogout = findViewById(R.id.buttonLogout);
 
         navigationHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +40,6 @@ public class FavoriteActivity extends AppCompatActivity {
         navigationFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Already on Favorite page, no action needed
             }
         });
 
@@ -47,6 +47,15 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FavoriteActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FavoriteActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
