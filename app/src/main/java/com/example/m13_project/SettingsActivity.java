@@ -1,6 +1,7 @@
 package com.example.m13_project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -36,7 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         apiService = retrofit.create(ApiService.class);
 
-        String userEmail = getIntent().getStringExtra("USER_EMAIL");
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("USER_EMAIL", null);
         if (userEmail != null) {
             fetchUserInfo(userEmail);
         } else {

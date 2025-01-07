@@ -4,21 +4,35 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Image implements Parcelable {
-    private String imageUrl;
+    private String creationDate;
+    private String description;
+    private String filename;
+    private int imageId;
+    private String type;
+    private String url;
 
     // Default constructor
     public Image() {
     }
 
-    // Constructor for Parcelable
+    // Constructor for Parcel
     protected Image(Parcel in) {
-        imageUrl = in.readString();
+        creationDate = in.readString();
+        description = in.readString();
+        filename = in.readString();
+        imageId = in.readInt();
+        type = in.readString();
+        url = in.readString();
     }
 
-    // Write the object to the parcel
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(imageUrl != null ? imageUrl : "");
+        dest.writeString(creationDate);
+        dest.writeString(description);
+        dest.writeString(filename);
+        dest.writeInt(imageId);
+        dest.writeString(type);
+        dest.writeString(url);
     }
 
     @Override
@@ -26,7 +40,6 @@ public class Image implements Parcelable {
         return 0;
     }
 
-    // Parcelable creator
     public static final Creator<Image> CREATOR = new Creator<Image>() {
         @Override
         public Image createFromParcel(Parcel in) {
@@ -39,13 +52,60 @@ public class Image implements Parcelable {
         }
     };
 
-    // Getter for imageUrl
-    public String getImageUrl() {
-        return imageUrl;
+    // Getters and Setters
+    public String getCreationDate() {
+        return creationDate;
     }
 
-    // Setter for imageUrl
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public String getImageUrl() {
+        return url;
+    }
+
+    public void setImageUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

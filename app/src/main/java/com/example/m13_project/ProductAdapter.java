@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,15 +41,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productPrice.setText(String.valueOf(product.getPrice()));
 
         // Use Glide to load the product image or fallback to placeholder
-        String imageUrl = (product.getImage() != null && product.getImage().getImageUrl() != null)
-                ? product.getImage().getImageUrl()
-                : "https://via.placeholder.com/250";
+        String imageUrl = (product.getImageUrl() != null)
+                ? product.getImageUrl()
+                : "https://via.placeholder.com/150";
 
         Glide.with(context)
                 .load(imageUrl)
                 .into(holder.productImage);
 
-        holder.itemView.setOnClickListener(v -> onProductClickListener.onProductClick(product));
+        holder.buttonLike.setText(product.isLiked() ? "Unlike" : "Like");
+        holder.buttonLike.setOnClickListener(v -> {
+            product.setLiked(!product.isLiked());
+            holder.buttonLike.setText(product.isLiked() ? "Unlike" : "Like");
+            if (onProductClickListener != null) {
+                onProductClickListener.onProductClick(product);
+            }
+        });
     }
 
     @Override
@@ -60,12 +68,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         ImageView productImage;
         TextView productName;
         TextView productPrice;
+        Button buttonLike;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.productImage);
             productName = itemView.findViewById(R.id.productName);
             productPrice = itemView.findViewById(R.id.productPrice);
+            buttonLike = itemView.findViewById(R.id.buttonLike);
         }
     }
 

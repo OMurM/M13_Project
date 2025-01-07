@@ -1,6 +1,7 @@
 package com.example.m13_project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -76,6 +77,13 @@ public class MainActivity extends AppCompatActivity {
                         if (response != null) {
                             Log.d(TAG, "Login successful: " + response);
                             Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                            // Store user email in shared preferences
+                            SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("USER_EMAIL", email);
+                            editor.apply();
+
                             Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
                             startActivity(intent);
                             finish();
